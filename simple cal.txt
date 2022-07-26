@@ -1,0 +1,132 @@
+package com.example.calci;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+    Button button1,buttonC,button2,button3, button4, button5, button6, button7, button8, button9;
+    Button button0, buttondot, buttonequal, buttondivide, buttonmul, buttonminus, buttonplus;
+    EditText Result;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        button1 = (Button) findViewById(R.id.button1);
+        button1.setOnClickListener(this::onClick);
+        button2 = (Button) findViewById(R.id.button2);
+        button2.setOnClickListener(this::onClick);
+        buttonC=findViewById(R.id.buttonC);
+        buttonC.setOnClickListener(this::onClick);
+        Result = findViewById(R.id.Result);
+        Result.setText("");
+        button0=findViewById(R.id.button0);
+        button0.setOnClickListener(this::onClick);
+        button3=findViewById(R.id.button3);
+        button3.setOnClickListener(this::onClick);
+        button4=findViewById(R.id.button4);
+        button4.setOnClickListener(this::onClick);
+        button5=findViewById(R.id.button5);
+        button5.setOnClickListener(this::onClick);
+        button6=findViewById(R.id.button6);
+        button6.setOnClickListener(this::onClick);
+        button7=findViewById(R.id.button7);
+        button7.setOnClickListener(this::onClick);
+        button8=findViewById(R.id.button8);
+        button8.setOnClickListener(this::onClick);
+        button9=findViewById(R.id.button9);
+        button9.setOnClickListener(this::onClick);
+        buttondot=findViewById(R.id.buttondot);
+        buttondot.setOnClickListener(this::onClick);
+        buttonequal=findViewById(R.id.buttonequal);
+        buttonequal.setOnClickListener(this::onClick);
+        buttondivide=findViewById(R.id.buttondivide);
+        buttondivide.setOnClickListener(this::onClick);
+        buttonmul=findViewById(R.id.buttonmul);
+        buttonmul.setOnClickListener(this::onClick);
+        buttonminus=findViewById(R.id.buttonmin);
+        buttonminus.setOnClickListener(this::onClick);
+        buttonplus=findViewById(R.id.buttonplus);
+        buttonplus.setOnClickListener(this::onClick);
+    }
+    public void onClick(View v) {
+        if (v.equals(button1)) {
+            Result.append("1");
+        }
+        if (v.equals(buttonC))
+            Result.setText("");
+        if (v.equals(button2))
+            Result.append("2");
+        if (v.equals(button0))
+            Result.append("0");
+        if (v.equals(button3))
+            Result.append("3");
+        if (v.equals(button5))
+            Result.append("5");
+        if (v.equals(button4))
+            Result.append("4");
+        if (v.equals(button6))
+            Result.append("6");
+        if (v.equals(button7))
+            Result.append("7");
+        if (v.equals(button8))
+            Result.append("8");
+        if (v.equals(button9))
+            Result.append("9");
+        if (v.equals(buttondot))
+            Result.append(".");
+        if (v.equals(buttonplus))
+            Result.append("+");
+        if (v.equals(buttonminus))
+            Result.append("-");
+        if (v.equals(buttondivide))
+            Result.append("/");
+        if (v.equals(buttonmul))
+            Result.append("*");
+        if (v.equals(buttonequal)) {
+            double result;
+            String data = Result.getText().toString();
+                if (data.contains("/")) {
+                    result = Calculate("/", data);
+                } else if (data.contains("*")) {
+                    result = Calculate("*", data);
+                } else if (data.contains("+")) {
+                    result = Calculate("+", data);
+                } else if (data.contains("-")) {
+                    result = Calculate("-", data);
+                } else {
+                    result = Double.parseDouble(data);
+                }
+                Result.setText(String.valueOf(result));
+        }
+    }
+    public double Calculate(String c, String data) {
+        double result = 0, operand1, operand2;
+        String operands[] = data.split("[-+*/]");
+        if (operands.length == 2) {
+            operand1 = Double.parseDouble(operands[0]);
+            operand2 = Double.parseDouble(operands[1]);
+            switch (c) {
+                case "/":
+                    result = operand1 / operand2;
+                    break;
+                case "*":
+                    result = operand1 * operand2;
+                    break;
+                case "+":
+                    result = operand1 + operand2;
+                    break;
+                case "-":
+                    result = operand1 - operand2;
+                }
+        }
+        else {
+                Toast.makeText(getBaseContext(), "Invalid Input", Toast.LENGTH_LONG).show();
+        }
+            return result;
+    }
+}

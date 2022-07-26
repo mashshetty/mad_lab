@@ -1,0 +1,56 @@
+package com.example.wallpaper;
+import androidx.appcompat.app.AppCompatActivity;
+import android.app.WallpaperManager;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import java.util.Timer;
+import java.util.TimerTask;
+public class MainActivity extends AppCompatActivity {
+ Button button;
+ int[] imagesarray = new int[]{
+ R.drawable.img1,
+ R.drawable.img2,
+ R.drawable.img3,
+ R.drawable.img4,
+ R.drawable.img5,
+ R.drawable.img6,
+ R.drawable.img7,
+ R.drawable.img8,
+ R.drawable.img9,
+ R.drawable.img10
+ };
+ int i =0;
+ @Override
+ protected void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.activity_main);
+ button = findViewById(R.id.button);
+ button.setOnClickListener(this::onclick);
+ }
+ public void onclick(View v)
+ {
+ new Timer().schedule(new MyTimer(),0,3000);
+ }
+ class MyTimer extends TimerTask {
+ public void run()
+ {
+ try{
+ WallpaperManager w =
+WallpaperManager.getInstance(getBaseContext());
+
+w.setBitmap(BitmapFactory.decodeResource(getResources(),imagesarray[i]
+));
+ i++;
+ }
+ catch (Exception e)
+
+{
+
+}
+
+}
+
+}
+}

@@ -1,0 +1,105 @@
+package com.example.contact;
+import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+public class MainActivity extends AppCompatActivity {
+ Button bone, btwo, bthree, bfour, bfive, bsix, bseven, beight,
+bnine, bzero, delete, call, save,star, hash;
+ EditText phonenumber;
+ @Override
+ protected void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.activity_main);
+ bone = findViewById(R.id.button_1);
+ btwo = findViewById(R.id.button_2);
+ bthree = findViewById(R.id.button_3);
+ bfour = findViewById(R.id.button_4);
+ bfive = findViewById(R.id.button_5);
+ bsix = findViewById(R.id.button_6);
+ bseven = findViewById(R.id.button_7);
+ beight = findViewById(R.id.button_8);
+ bnine = findViewById(R.id.button_9);
+ bzero = findViewById(R.id.button_0);
+ delete = findViewById(R.id.button);
+ call = findViewById(R.id.button_call);
+ save = findViewById(R.id.button_save);
+ star = findViewById(R.id.button_star);
+ hash = findViewById(R.id.button_hash);
+ bone.setOnClickListener(this::onClick);
+ phonenumber = findViewById(R.id.editTextTextPersonName);
+ btwo.setOnClickListener(this::onClick);
+ bthree.setOnClickListener(this::onClick);
+ bfour.setOnClickListener(this::onClick);
+ bfive.setOnClickListener(this::onClick);
+ bsix.setOnClickListener(this::onClick);
+ bseven.setOnClickListener(this::onClick);
+ beight.setOnClickListener(this::onClick);
+ bnine.setOnClickListener(this::onClick);
+ bzero.setOnClickListener(this::onClick);
+ delete.setOnClickListener(this::onClick);
+ call.setOnClickListener(this::onClick);
+ star.setOnClickListener(this::onClick);
+ save.setOnClickListener(this::onClick);
+ hash.setOnClickListener(this::onClick);
+ }
+ public void onClick(View v)
+ {
+ if(v.equals(bzero))
+ phonenumber.append("0");
+ else if(v.equals(bone))
+ phonenumber.append("1");
+ else if(v.equals(btwo))
+ phonenumber.append("2");
+ else if(v.equals(bthree))
+ phonenumber.append("3");
+ else if(v.equals(bfour))
+ phonenumber.append("4");
+ else if(v.equals(bfive))
+ phonenumber.append("5");
+ else if(v.equals(bsix))
+ phonenumber.append("6");
+ else if(v.equals(bseven))
+ phonenumber.append("7");
+ else if(v.equals(beight))
+ phonenumber.append("8");
+ else if(v.equals(bnine))
+ phonenumber.append("9");
+ else if(v.equals(star))
+ phonenumber.append("*");
+ else if(v.equals(hash))
+ phonenumber.append("#");
+ else if(v.equals(delete))
+ {
+ String data = phonenumber.getText().toString();
+ if(data.length()>0)
+ phonenumber.setText(data.substring(0,data.length()-
+1));
+ }
+ else if(v.equals(call))
+ {
+ String num = phonenumber.getText().toString();
+ Intent intent = new Intent((Intent.ACTION_DIAL));
+ intent.setData(Uri.parse("tel:"+ num));
+ startActivity(intent);
+ }
+ else if(v.equals(save)){
+ Intent contactintent = new
+Intent(ContactsContract.Intents.Insert.ACTION);
+
+contactintent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
+
+contactintent.putExtra(ContactsContract.Intents.Insert.PHONE,phonenumb
+er.getText().toString());
+ startActivity(contactintent);
+ }
+ else{
+ phonenumber.setText("");
+ }
+
+}
+}
